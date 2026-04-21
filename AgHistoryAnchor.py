@@ -18,6 +18,7 @@ def main():
     group.add_argument('-c', '--checkup', action='store_true', help="Anchor Checkup")
     group.add_argument('-r', '--restore', action='store_true', help="Restore from Anchor")
     group.add_argument('-e', '--export', action='store_true', help="Export Zipped Backup")
+    group.add_argument('-x', '--exe', action='store_true', help="Export Self-Anchoring EXE")
     
     # Mode Flags
     parser.add_argument('--live', action='store_true', help="Execute in LIVE mode (writes to disk)")
@@ -33,6 +34,7 @@ def main():
     elif args.checkup: initial_action = '4'
     elif args.restore: initial_action = 'r'
     elif args.export: initial_action = 'e'
+    elif args.exe: initial_action = 'x'
     
     # Default to simulation mode unless --live is explicitly requested
     sim_mode = True

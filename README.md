@@ -1,100 +1,121 @@
-# ⚓ AgHistoryAnchor
+# Antigravity History Backup and Migration Tool
 
 > **Secure. Portable. High-Fidelity.** The ultimate companion for Google Antigravity IDE history management.
 
-**AgHistoryAnchor** is a standalone, machine-agnostic tool designed to ensure your development history never stays behind. Whether you're switching machines or just want a surgical backup of your work, Anchor provides byte-accurate reconstruction of your conversation history.
+**AgHistoryAnchor** is a standalone, machine-agnostic tool designed to ensure your development history never stays behind. 
 
----
-
-## ✨ Key Features
-
-*   **⚓ Machine-Agnostic Recovery**: Restore conversation history from self-contained "Anchors" (Local Backups).
-*   **🧬 High-Fidelity Restoration**: Byte-accurate reconstruction of Protobuf and JSON indices.
-*   **📦 One-Click Portability**: Run as a single-file executable or a modular Python package.
-*   **🔍 Smart Project Search**: Automatically identifies archives in project roots or central tools directories.
-*   **🎨 Premium TUI**: A sleek, professional terminal interface with vibrant color-coding.
-*   **💡 Internal Help**: Dedicated usage guide accessible via Choice `[h]`.
+### 🚀 What it does:
+*   **Saves project conversation history** into the project folder and lets you restore it at any time.
+*   **Whole Project Backups**: Creates comprehensive backups (conversation + brain files) in ZIP form for cross-platform migration (Linux & Windows).
+*   **One-Click EXE Migration**: Generates standalone Windows executables for effortless, zero-dependency project transfers.
+*   **Health Checkups**: Detects if conversations are deleted from the IDE but exist in backups, or if local backups are missing new messages from the IDE.
+*   **Bulk Operations**: Lets you backup the current project or every project found in your history at once.
+*   **Safety First**: Includes a read-only **Simulation Mode** to test all logic before committing changes to disk.
 
 ---
 
 ## 📂 Project Structure
 
+A clean, organized architecture designed to separate "soul" (logic) from "body" (support files).
+
 ```text
 AgHistoryAnchor/
-├── AgHistoryAnchor.py      # Entry point wrapper
-├── build_exe.bat           # Windows EXE build script
-├── ag_anchor.ico           # Rebranded 3D Icon
-├── ag_history/             # Main application package
-│   ├── cli.py              # Navigator (The "Brain" of the TUI)
+├── AgHistoryAnchor.py      # Entry point (Main Runner)
+├── ag_history/             # Main application package (The Engine)
+│   ├── cli.py              # Navigator (Brain of the TUI)
 │   ├── config.py           # Environment & IDE path resolution
 │   ├── core/               # Engine logic (Bit-manipulation & SQLite)
 │   ├── operations/         # Functional logic (Backup, Restore, Export)
 │   └── ui/                 # TUI Branding & ASCII styling
+├── assets/                 # Rebranded 3D Icons & Visuals
+├── docs/                   # Design Proposals & Developer Guides
+├── scripts/                # Build Toolkit (.bat files)
 └── tests/                  # Unit testing suite
 ```
 
 ---
 
-## 🚀 Quickstart
+---
+
+## 📂 Project Structure
+
+## 🚀 Usability Guide
 
 ### 🖥️ Using the Standalone EXE (Windows)
-1. **Download**: Grab the latest `AgHistoryAnchor.exe`.
+1. **Download**: Grab the latest `AgHistoryAnchor.exe` from the `dist/` folder.
 2. **Drop**: Move it to your project root or a tools folder.
 3. **Run**: Double-click to start managing your history instantly.
 
 ### 🐍 Using the Source
-If you prefer running from source:
-1. Copy `AgHistoryAnchor.py` and the `ag_history/` folder to your project.
-2. Launch the script:
+1. Ensure `python` is installed.
+2. Launch the script from the root:
    ```bash
    python AgHistoryAnchor.py
    ```
 
----
+### ⌨️ Command Line Arguments
+Use these for automated or rapid workflows:
 
-## ⌨️ CLI Arguments
-
-For automated workflows or quick access, AgHistoryAnchor supports direct parameters:
-
-| Action | Flag | Description |
+| Feature | Flag | Description |
 | :--- | :--- | :--- |
-| **Backup** | `-b`, `--backup` | Anchor Current Project |
-| **Backup All** | `-ba`, `--backup-all` | Anchor ALL Projects |
-| **List** | `-p`, `--projects` | Open Project Browser |
-| **Checkup** | `-c`, `--checkup` | Run Anchor Checkup |
-| **Restore** | `-r`, `--restore` | Enter Restore Menu |
-| **Export** | `-e`, `--export` | Generate Zipped Backup |
+| **Backup Current** | `-b`, `--backup` | Anchor Current Project (`1`) |
+| **Backup ALL** | `-ba`, `--backup-all` | Anchor ALL Projects (`2`) |
+| **Project Browser** | `-p`, `--projects` | Open Project Browser (`3`) |
+| **Checkup** | `-c`, `--checkup` | Run Anchor Checkup (`4`) |
+| **Restore** | `-r`, `--restore` | Enter Restore Menu (`r`) |
+| **Export Zipped** | `-e`, `--export` | Generate Zipped Backup (`e`) |
+| **Export EXE** | `-x`, `--exe` | Generate Standalone EXE (`x`) |
 | **Live Mode** | `--live` | Run in LIVE mode |
-| **Safe Mode** | `--sim` | Run in SIMULATION mode |
+| **Simulation** | `--sim`, `--simulation` | Run in SAFE/SIMULATION mode |
 
-**Example:**
-```bash
-AgHistoryAnchor.exe --backup --sim
+**Example Usage:**
+```powershell
+# Perform a surgical backup in simulation mode
+python AgHistoryAnchor.py --backup --sim
+
+# Directly export a standalone recovery EXE in live mode
+python AgHistoryAnchor.py -x --live
 ```
+```
+### 📦 High-Fidelity Recovery Strategies
+When exporting a Standalone EXE (`-x`), you can choose from three intelligent strategies:
+
+*   **1. Hybrid (Recommended)**: Bundles the Git remote link **and** the project files. The safest way to ensure recovery even if Git is unavailable on the target machine.
+*   **2. Surgical**: Only bundles the Git remote link. Creates a tiny EXE (~15MB) that clones the repository on-the-fly during restoration.
+*   **3. Offline**: Only bundles project files. Ideal for air-gapped environments or private repositories where Git access is not guaranteed.
+
+### 🔄 Automated Restoration Flow
+The Self-Anchoring EXE is more than an extractor—it's an installer:
+1.  **Auto-Nesting**: Automatically creates a project subfolder at the destination.
+2.  **Git-Aware**: Automatically pulls the latest source code if the mode supports it.
+3.  **Instant Pivot**: Automatically launches the restoration menu once the project is ready, allowing for one-click history injection.
 
 ---
 
-## 🛠️ Building from Source
+## 🛠️ Building & Internal Ops
 
-Want to package your own version?
-1. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   pip install pyinstaller pillow
+### Building the Production EXE
+1. **Prepare Environment**: `pip install -r requirements.txt pyinstaller`
+2. **Execute Build**:
+   ```powershell
+   .\scripts\build_exe.bat
    ```
-2. **Build the EXE**:
-   ```bash
-   ./build_exe.bat
-   ```
-3. Your portable executable will be ready in the `dist/` directory.
+
+### Rebuilding the Carrier Stub
+If you modify the restoration stub (`ag_history/operations/carrier.py`), update the base binary:
+```powershell
+.\scripts\build_carrier.bat
+```
 
 ---
 
 ## 🛡️ Safety & Integrity
 
-*   **Automated Snapshots**: Anchor creates a timestamped safety copy of your global database before every operation.
-*   **Simulation Mode**: Dry-run any restore or backup to verify logic before committing changes.
-*   **Non-Destructive**: Intelligently merges history without overwriting healthy existing sessions.
+- **Automated Snapshots**: Anchor creates a timestamped safety copy of your global database before every operation.
+- **Simulation Mode**: Dry-run any action to verify logic before committing changes.
+- **Non-Destructive**: Merges history intelligently without overwriting healthy existing sessions.
 
 ---
-*Developed for Antigravity — Zero-dependency core logic.*
+> [!NOTE]
+> This repository is for **Antigravity** users. Stable releases and feature updates are maintained here.
+

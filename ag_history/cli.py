@@ -9,7 +9,7 @@ from .core.database import extract_metadata, extract_workspace_uri
 from .core.utils import normalize_uri, uri_to_path
 from .operations.backup import run_vault, run_backup_all
 from .operations.restore import run_restore
-from .operations.export import run_export
+from .operations.export import run_export, run_exe_export
 from .operations.diagnostic import run_vault_checkup
 
 class Navigator:
@@ -97,6 +97,7 @@ class Navigator:
             print(f"  {UI.BOLD}[4]{UI.RESET} Anchor Checkup          (Compare IDE vs Local)")
             print(f"  {UI.BOLD}[r]{UI.RESET} Restore from Anchor     (Inject to IDE)")
             print(f"  {UI.BOLD}[e]{UI.RESET} Export Zipped Backup    (For another PC)")
+            print(f"  {UI.BOLD}[x]{UI.RESET} Export Self-Anchoring EXE (Standalone Recovery)")
             print(f"  {UI.BOLD}[m]{UI.RESET} Toggle Mode             (Sim/Live)")
             print(f"  {UI.BOLD}[h]{UI.RESET} Help                    (Usage Guide)")
             print(f"  {UI.BOLD}[q]{UI.RESET} Quit")
@@ -113,6 +114,7 @@ class Navigator:
         elif choice == '4': run_vault_checkup(self)
         elif choice == 'r': run_restore(self)
         elif choice == 'e': run_export(self, cur_matches)
+        elif choice == 'x': run_exe_export(self, cur_matches)
         elif choice == 'm': 
             self.sim_mode = not self.sim_mode
             UI.warn(f"Switched to {'SIMULATION' if self.sim_mode else 'LIVE'} mode.")

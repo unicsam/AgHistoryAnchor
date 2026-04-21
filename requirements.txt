@@ -1,0 +1,6 @@
+# AgHistoryVault Dependencies
+# Currently uses only standard Python libraries.
+
+# Future potential dependencies:
+# psutil  # To check for running Antigravity processes
+# colorama # For cross-platform terminal colors

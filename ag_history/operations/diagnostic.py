@@ -19,11 +19,15 @@ def run_vault_checkup(navigator):
     if not all_uris:
         return UI.warn("No projects found in IDE history.")
 
+    # Track repairs needed: { uri: { "update": [], "save": [] } }
+    repair_map = {}
+
     for uri in all_uris:
         path = uri_to_path(uri)
         if not os.path.isdir(path): continue
         
         project_name = os.path.basename(path)
+        repair_map[uri] = {"update": [], "save": []}
         
         # Search for backup dir
         v_dir = None
@@ -40,8 +44,7 @@ def run_vault_checkup(navigator):
                 break
         
         v_index = {}
-        
-        if os.path.exists(v_index_path):
+        if v_index_path and os.path.exists(v_index_path):
             try:
                 with open(v_index_path, 'r', encoding='utf-8') as f: v_index = json.load(f)
             except: pass
@@ -72,8 +75,10 @@ def run_vault_checkup(navigator):
                     color, status_text = UI.GREEN, "[SAFE]"
                 else:
                     color, status_text = UI.ORANGE, "[UPDATE REQ]"
+                    repair_map[uri]["update"].append(uid)
             elif in_ide:
                 color, status_text = UI.BRED, "[UNSAVED]"
+                repair_map[uri]["save"].append(uid)
             elif in_vault:
                 color, status_text = UI.YELLOW, "[ARCHIVED]"
             
@@ -84,3 +89,36 @@ def run_vault_checkup(navigator):
     print(f"  {UI.ORANGE}[UPDATE REQ]{UI.RESET}- IDE has new data not in backup.")
     print(f"  {UI.BRED}[UNSAVED]{UI.RESET}    - Exists in IDE only (Not backed up).")
     print(f"  {UI.YELLOW}[ARCHIVED]{UI.RESET}   - Exists in Backup only (Deleted from IDE).")
+
+    # --- REPAIR STATION ---
+    t_updates = sum(len(r["update"]) for r in repair_map.values())
+    t_saves = sum(len(r["save"]) for r in repair_map.values())
+    
+    if t_updates == 0 and t_saves == 0:
+        input(f"\n{UI.GREEN}[✓] System fully aligned.{UI.RESET} Press Enter to return...")
+        return
+
+    UI.header("⚓ REPAIR STATION")
+    print(f"  {UI.BOLD}[1]{UI.RESET} Sync {UI.ORANGE}[UPDATE REQ]{UI.RESET} only ({t_updates} sessions)")
+    print(f"  {UI.BOLD}[2]{UI.RESET} Sync {UI.BRED}[UNSAVED]{UI.RESET} only    ({t_saves} sessions)")
+    print(f"  {UI.BOLD}[3]{UI.RESET} Sync ALL (Update + New)")
+    print(f"  {UI.BOLD}[q]{UI.RESET} Back to Menu")
+    
+    choice = input(f"\nRepair Choice > ").strip().lower()
+    if choice == 'q': return
+    
+    from .backup import run_vault
+    
+    for uri, data in repair_map.items():
+        targets = []
+        if choice == '1': targets = data["update"]
+        elif choice == '2': targets = data["save"]
+        elif choice == '3': targets = data["update"] + data["save"]
+        
+        if targets:
+            p_name = os.path.basename(uri_to_path(uri))
+            print(f"\n{UI.BOLD}🛠️ Repairing {p_name}...{UI.RESET}")
+            run_vault(navigator, targets, target_uri=uri, auto=True)
+
+    UI.success("\nRepair operations complete.")
+    input(f"Press Enter to return to menu...")

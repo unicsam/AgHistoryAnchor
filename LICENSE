@@ -5,9 +5,9 @@ PROPRIETARY SOURCE-AVAILABLE LICENSE
 1. PERMISSION TO VIEW: Permission is hereby granted to any person obtaining a copy of this software and associated documentation files to view and inspect the source code for educational and non-commercial purposes only.
 
 2. RESTRICTIONS ON USE: 
-   - You may NOT copy, redistribute, or sell this software in source or binary form.
-   - You may NOT modify, merge, publish, or sublicense the software.
-   - You may NOT use any part of this code in your own projects without explicit written permission from the copyright holder (unicsam).
+   - You may NOT redistribute, sell, or sublicense this software in source or binary form.
+   - You MAY modify the software for your own personal use (e.g., to fix local issues or add features).
+   - You may NOT use any part of this code in other projects or redistribute modified versions without explicit written permission from the copyright holder (unicsam).
 
 3. CONTRIBUTIONS: Users may submit contributions (e.g., Pull Requests) to the software. By submitting a contribution, you agree that:
    - Your contribution is licensed under these same proprietary terms.

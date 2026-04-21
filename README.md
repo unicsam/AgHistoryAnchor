@@ -1,13 +1,13 @@
 # Antigravity History Backup and Migration Tool
 
-> **Secure. Portable. High-Fidelity.** The ultimate companion for Google Antigravity IDE history management.
+> **Secure. Portable** The ultimate companion for Google Antigravity IDE for Data Migrationa and History management.
 
 **AgHistoryAnchor** is a standalone, machine-agnostic tool designed to ensure your development history never stays behind. 
 
 ### 🚀 What it does:
 *   **Saves project conversation history** into the project folder and lets you restore it at any time.
-*   **Whole Project Backups**: Creates comprehensive backups (conversation + brain files) in ZIP form for cross-platform migration (Linux & Windows).
-*   **One-Click EXE Migration**: Generates standalone Windows executables for effortless, zero-dependency project transfers.
+*   **Whole Project Backups**: Creates comprehensive backups (project+conversation + brain files) in ZIP form for cross-platform data migration (Linux & Windows).
+*   **One-Click EXE Migration**: Generates standalone Windows executables for effortless, zero-dependency project (project + conversation + brain files) transfers. 
 *   **Health Checkups**: Detects if conversations are deleted from the IDE but exist in backups, or if local backups are missing new messages from the IDE.
 *   **Bulk Operations**: Lets you backup the current project or every project found in your history at once.
 *   **Safety First**: Includes a read-only **Simulation Mode** to test all logic before committing changes to disk.

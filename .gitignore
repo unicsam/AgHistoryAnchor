@@ -124,3 +124,33 @@ venv.bak/
 .antigravity/
 ag_backup_*
 *.vscdb.*
+
+# --- Added by Git History Healer ---
+# Build Folders
+build/
+bin/
+out/
+target/
+dist/
+.gradle/
+.dart_tool/
+node_modules/
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Artifacts
+*.apk
+*.aar
+*.jar
+*.exe
+*.dll
+*.so
+*.log
+*.tmp
+local.properties
+captures/
